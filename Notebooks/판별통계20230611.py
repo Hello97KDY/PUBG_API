@@ -95,7 +95,7 @@ def get_statistics(username, url, header):
     player_df = get_dataframe(url, header)
 
     
-    for index in range(len(player_df)):
+    for index in range(2):#len(player_df)):
         match_url = f'https://api.pubg.com/shards/kakao/matches/{player_df["id"][index]}'
         match_response = requests.get(match_url, headers=header)
         match_json = match_response.json()
@@ -120,10 +120,13 @@ def get_statistics(username, url, header):
         # 순위별 팀원 이름 및 통계 출력
         grouped_df = game_result_df.groupby('rankx')
         for rank, group in grouped_df:
+            
             names = ', '.join(group['name'])
             total_kills = group['kills'].sum()
             total_assists = group['assists'].sum()
-            print(f"{rank}등: {names}\n\t총 킬 수: {total_kills}\t총 어시스트 수: {total_assists}")
+            avg_movement_dist = round((group['walkDistance'].sum() + group['swimDistance'].sum() + group['rideDistance'].sum()) / 3 / 1000,2)
+
+            print(f"{rank}등: {names}\n\t총 킬 수: {total_kills}\t총 어시스트 수: {total_assists}\t평균 이동 거리: {avg_movement_dist}km")
 
 # 메인: 플레이어 이름 및 API 정보 설정 후 통계 함수 호출
 if __name__ == "__main__":
@@ -135,3 +138,10 @@ if __name__ == "__main__":
     }
  
     get_statistics(username, url, header)
+
+
+'''
+문제 사항
+1. op.gg의 데이터와 일치 하지 않음
+2. 
+'''
