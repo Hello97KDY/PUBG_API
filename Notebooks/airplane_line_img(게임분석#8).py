@@ -171,7 +171,7 @@ def get_positions_draw(username, url_list):
             cv2.line(map_image, (map_x, map_y), (map_x1, map_y1), (175, 175, 0), 50) # 지상 이동경로
         
         a = (lin_function_y2 - lin_function_y1) / (lin_function_x2 - lin_function_x1) # 기울기
-        b = (lin_function_x2*lin_function_y1 - lin_function_x1*lin_function_y2) / (lin_function_x2 - lin_function_x1) # 상수
+        b = (lin_function_x2*lin_function_y1 - lin_function_x1*lin_function_y2) / (lin_function_x2 - lin_function_x1)
         
         cv2.line(map_image, (0,int(b)), (int(map_image.shape[1]), int(a*map_image.shape[1] + b)), (0, 0, 250), 80,cv2.LINE_4) # 비행기 결로
 
